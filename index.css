@@ -1,0 +1,56 @@
+body {
+    font-family: 'Roboto Mono' !important;
+    margin: 0;
+    padding: 0;
+}
+
+.responsive-image {
+    width: 150px;
+    height: auto;
+}
+
+.message-card {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.message-text {
+    font-size: 1rem;
+    text-align: left;
+    max-width: 60%;
+    line-height: 1.4;
+}
+
+#message-container {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: scroll !important;
+    scrollbar-width: none;
+    max-height: 90vh; /* Adjust height based on the header and input field */
+}
+
+@media (max-width: 768px) {
+    .message-text {
+        max-width: 90%; /* Allow messages to take up more space on smaller screens */
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group input {
+        width: 100% !important;
+        border-radius: 10px !important;
+    }
+
+    .input-group button {
+        width: 100%;
+        margin-top: 0.5rem;
+        border-radius: 10px !important;
+    }
+}

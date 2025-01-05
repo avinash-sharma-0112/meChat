@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeChat</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body style="height: 100vh; width: 100vw;">
+    <div class="h-100 w-100 d-flex flex-column justify-content-center align-items-center bg-black text-white">
+        <h1>MeChat</h1>
+        <!-- Bootstrap Card -->
+        <div class="card w-75 w-md-50 h-75 border-0">
+            <div class="card-body d-flex flex-column">
+                <div class="card border-0 flex-grow-1 overflow-auto" id="message-container">
+                    <!-- Messages will be appended here -->
+                </div>
+                <div class="row m-0 p-0 ">
+                    <div class="input-group" id="message-form">
+                        <input type="text" class="form-control" placeholder="Type your message here..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <button class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+
+        $("#message-form button").on('click', (e) => {
+            var input = $("#message-form input");
+            if(input.val()) {
+                loadMyMessage(input.val());
+                socket.emit('sendMessage', input.val());
+                input.val('');
+            }
+        })
+
+        socket.on('receiveMessage', function(msg) {
+            loadOtherMessage(msg);
+        });
+
+        function loadMyMessage(msg) {
+            const messageCard = $('<div>', {
+                class: 'message-card my-2 justify-content-end'
+            });
+            messageCard.append(`<span class="badge message-text text-bg-primary p-2 px-3 text-wrap">`+msg+`</span>`);
+            $("#message-container").append(messageCard);
+        }
+
+        function loadOtherMessage(msg) {
+            const messageCard = $('<div>', {
+                class: 'message-card my-2'
+            });
+            messageCard.append(`<span class="badge message-text text-bg-secondary p-2 px-3 text-wrap">`+msg+`</span>`);
+            $("#message-container").append(messageCard);
+        }
+    </script>
+</body>
+</html>
