@@ -44,7 +44,7 @@ Ensure you have **Node.js** and **npm** installed. If not, download and install 
 4. Start the server:
 
     ```bash
-    npm run test
+    npm start
     ```
 
     The application will be running on `http://localhost:3000` by default.
