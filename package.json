@@ -4,7 +4,7 @@
   "description": "Simple real-time chat app",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon --ext js,html,css index.js"
+    "start": "nodemon --ext js,html,css index.js"
   },
   "author": "Avinash",
   "license": "ISC",
